@@ -20,14 +20,14 @@ jobs:
     steps:
       # Checkout to the repo main branch
       - name: Checkout
-        uses: actions/checkout@v5.0.0
+        uses: actions/checkout@5
 
       # All docker related command
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
       - name: Docker login
-        uses: docker/login-action@vz.5.0
+        uses: docker/login-action@latest
         with:
           registry: ${{ env.GH_REGISTRY }}
           username: ${{ github.actor }}

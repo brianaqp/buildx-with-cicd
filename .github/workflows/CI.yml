@@ -39,4 +39,4 @@ jobs:
           IMAGE_TAG: ${{ env.GH_REGISTRY }}/${{ github.repository_owner }}/vote-app:latest
         with:
           push: true
-          tags: IMAGE_TAG
+          tags: ${{ env.IMAGE_TAG }}

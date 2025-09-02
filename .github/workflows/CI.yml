@@ -6,7 +6,6 @@ on:
       - main
   push:
     branches: main
-
       
 jobs:
   build-webapp:
@@ -17,7 +16,23 @@ jobs:
     env:
       GH_REGISTRY: ghcr.io
       IMAGE_NAME: vote-app
+      
     steps:
+      - name: Docker meta
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: |
+            {{ env.GH_REGISTRY }}/${{ github.repository_owner }}/vote-app:latest
+          tags: |
+            type=schedule
+            type=ref,event=branch
+            type=ref,event=pr
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}}
+            type=semver,pattern={{major}}
+            type=sha
+            
       # Checkout to the repo main branch
       - name: Checkout
         uses: actions/checkout@v5.0.0
@@ -39,10 +54,11 @@ jobs:
 
       - name: Build and push
         uses: docker/build-push-action@v6
-        env:
-          IMAGE_TAG: ${{ env.GH_REGISTRY }}/${{ github.repository_owner }}/vote-app:latest
         with:
           push: true
-          tags: ${{ env.IMAGE_TAG }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
+          platforms: linux/amd64,linux/arm64
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          

@@ -1,5 +1,5 @@
-# Build an image with Github Actions
+# Build an Image with GitHub Actions
 
-Quick example in how to build an image using BUILDX.
+This project is a sample in how to build a Docker image using [BUILDX](https://docs.docker.com/buildx/working-with-buildx/) and GitHub Actions.
 
-More reference go to .github/workflows/CI.yml
+For a complete example and configuration details, see the [CI workflow file](.github/workflows/CI.yml) in this repository.

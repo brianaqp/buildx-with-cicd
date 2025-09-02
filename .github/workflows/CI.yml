@@ -23,7 +23,7 @@ jobs:
         uses: docker/metadata-action@v5
         with:
           images: |
-            {{ env.GH_REGISTRY }}/${{ github.repository_owner }}/vote-app
+            ${{ env.GH_REGISTRY }}/${{ github.repository_owner }}/vote-app
           tags: |
             type=schedule
             type=ref,event=branch
